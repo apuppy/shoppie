@@ -6,7 +6,7 @@ CREATE TABLE brand(
     address varchar(64) not null default '' comment 'brand address',
     logo varchar(64) not null default '' comment 'brand logo',
     slogan varchar(30) not null default '' comment 'brand slogan',
-    is_opening tinyint(1) not null default 0 comment 'brand opening status 0:closed 1:opening'
+    is_opening tinyint(1) not null default 0 comment 'brand opening status 0:closed 1:opening',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment 'brand';
 
@@ -18,6 +18,20 @@ CREATE TABLE shop(
     SN varchar(32) not null default '' comment 'shop serial number',
     create_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset=utf8 comment '店铺';
+
+CREATE TABLE shop_staff(
+    id
+    realname
+    nickname
+    mobile
+    avatar
+    motto
+    bio
+    email
+    entry_time
+    updated_at
+    create_at
+);
 
 -- product_category
 CREATE TABLE product_category(
@@ -66,9 +80,6 @@ CREATE TABLE picture(
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='pictures';
 
-
-
-
 -- customer
 CREATE TABLE customer(
     id int unsigned not null auto_increment primary key,
@@ -98,7 +109,7 @@ CREATE TABLE delivery_address(
     detailed_address varchar(64) not null default '' comment 'detailed address',
     is_default tinyint(1) unsigned not null default 0 comment 'default delivery address 0:not default 1:default',
     is_delete tinyint(1) unsigned not null default 0 comment 'delivery address is deleted 0:not deleted 1:deleted',
-    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time'
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='delivery address';
 
@@ -113,6 +124,108 @@ CREATE TABLE shopping_cart(
     unit_price int unsigned not null default 0 comment 'unit price,unit is cent/分',
     purchase_count int unsigned not null default 0 comment 'purchase count',
     is_delete tinyint(1) unsigned not null default 0 comment 'product deleted,0:not deleted 1:deleted',
-    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time'
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 );
+
+-- customer_order
+CREATE TABLE customer_order(
+    id int unsigned not null auto_increment primary key,
+    customer_id int unsigned not null default 0 comment 'customer id',
+    product_id int unsigned not null default 0 comment 'product id',
+    unit_price int unsigned not null default 0 comment 'unit price,unit is cent/分',
+    purchase_count int unsigned not null default 0 comment 'purchase count',
+    discount_price int unsigned not null default 0 comment 'discount price,unit is cent/分',
+    pay_progress tinyint(1) unsigned not null default 0 comment 'pay progress, 0:unpaid 1:paying 2:paid',
+    delivery_progress tinyint(1) unsigned not null default 0 comment 'delivery progress, 0:none 1:stocking 2:deliverying 3:received',
+    pay_price int unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
+    is_delete tinyint(1) unsigned not null default 0 comment 'customer order deleted,0:not deleted 1:deleted',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+)engine=InnoDB default charset = utf8 comment='customer order';
+
+-- customer_pay_order
+CREATE TABLE customer_pay_order(
+    id int unsigned not null auto_increment primary key,
+    customer_id int unsigned not null default 0 comment 'customer id',
+    delivery_address_id int unsigned not null default 0 comment 'delivery_address id',
+    pay_channel tinyint(1) unsigned not null default 0 comment 'pay channel 0:wechat pay 1:alipay 2:bank card 3:cash 4:offline',
+    pay_price int unsigned not null default 0 comment 'should pay total price,unit is cent/分',
+    pay_progress tinyint(1) unsigned not null default 0 comment 'pay progress, 0:unpaid 1:paying 2:paid',
+    paid_at DATETIME not null default CURRENT_TIMESTAMP comment 'successfully paid time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+)engine=InnoDB default charset = utf8 comment='customer pay order';
+
+CREATE TABLE customer_pay_order_log(
+    id int unsigned not null auto_increment primary key,
+    customer_id int unsigned not null default 0 comment 'customer id',
+    customer_pay_order_id int unsigned not null default 0 comment 'customer_pay_order id',
+    callback_message varchar(128) not null default '' comment 'pay channel callback message',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+);
+
+-- customer_pay_order_item
+CREATE TABLE customer_pay_order_item(
+    id int unsigned not null auto_increment primary key,
+    customer_id int unsigned not null default 0 comment 'customer id',
+    customer_pay_order_id int unsigned not null default 0 comment 'customer pay order id',
+    customer_order_id int unsigned not null default 0 comment 'customer order id',
+    pay_price int unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+)engine=InnoDB default charset = utf8 comment='customer pay order item';
+
+
+-- customer_order_delivery_log
+CREATE TABLE customer_order_delivery_log(
+    id int unsigned not null auto_increment primary key,
+    customer_id int unsigned not null default 0 comment 'customer id',
+    customer_order_id unsigned not null default 0 comment 'customer_order id',
+    address_name varchar(16) not null default '' comment 'delivery station address name',
+    lat DECIMAL(10, 8) NOT NULL comment 'latitude',
+    lng DECIMAL(11, 8) NOT NULL comment 'longitude',
+    message varchar(64) not null default '' comment 'delivery message',
+    remark varchar(64) not null default '' comment 'remark',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+)engine=InnoDB default charset = utf8 comment='customer order delivery log';
+
+
+-- shop_income
+CREATE TABLE shop_income(
+    id
+    shop_id
+    total_income
+    left_income
+    withdrawn_income
+    updated_at
+    created_at
+)engine=InnoDB default charset = utf8;
+
+CREATE TABLE shop_income_log(
+    id
+    customer_pay_order_id
+    price 
+    created_at
+);
+
+-- bank_card
+CREATE TABLE bank_card(
+    id
+    bank_id
+    card_number
+    account_name
+    account_mobile
+    is_default
+    created_at
+)engine=InnoDB default charset = utf8 'bank card or payment tool';
+
+
+-- bank
+CREATE TABLE bank(
+    id
+    bank_name
+    logo
+    is_delete
+)engine=InnoDB default charset = utf8 comment 'banks or payment platform';
