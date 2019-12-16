@@ -17,21 +17,22 @@ CREATE TABLE shop(
     name varchar(32) not null default '' comment 'shop name',
     SN varchar(32) not null default '' comment 'shop serial number',
     create_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset=utf8 comment '店铺';
+)engine=InnoDB default charset=utf8 comment 'shop';
 
+-- shop_staff
 CREATE TABLE shop_staff(
-    id
-    realname
-    nickname
-    mobile
-    avatar
-    motto
-    bio
-    email
-    entry_time
-    updated_at
-    create_at
-);
+    id int unsigned not null auto_increment primary key,
+    realname varchar(16) not null default '' comment 'staff realname',
+    nickname varchar(16) not null default '' comment 'staff nickname',
+    mobile varchar(11) not null default '' comment 'mobile number',
+    avatar varchar(64) not null default '' comment 'staff avatar',
+    motto varchar(32) not null default '' comment 'staff motto',
+    bio varchar(64) not null default '' comment 'personal short bio',
+    email varchar(32) not null default '' comment 'email',
+    entry_time DATETIME not null default CURRENT_TIMESTAMP comment 'entry time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    create_at DATETIME not null default CURRENT_TIMESTAMP comment 'entry time'
+)engine=InnoDB default charset=utf8 comment 'shop staff';
 
 -- product_category
 CREATE TABLE product_category(
@@ -55,10 +56,9 @@ CREATE TABLE product(
 )engine=InnoDB default charset = utf8 comment='product';
 
 -- product_detail
-
 CREATE TABLE product_detail(
     id int unsigned not null auto_increment primary key,
-    product_id unsigned not null default 0 comment 'product id',
+    product_id int unsigned not null default 0 comment 'product id',
     content text comment 'product detail content',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
@@ -67,14 +67,14 @@ CREATE TABLE product_detail(
 -- product_pictures
 CREATE TABLE product_picture(
     id int unsigned not null auto_increment primary key,
-    product_id unsigned not null default 0 comment 'product id',
+    product_id int unsigned not null default 0 comment 'product id',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='product pictures';
 
 -- pictures
 CREATE TABLE picture(
     id int unsigned not null auto_increment primary key,
-    pic_type tinyint(1) unsigned not null default 0 'picture type,0:normal/product picture 1:logo 2:shop picture',
+    pic_type tinyint(1) unsigned not null default 0 comment 'picture type,0:normal/product picture 1:logo 2:shop picture',
     filename varchar(64) not null default '' comment 'picture filename',
     is_delete tinyint(1) unsigned not null default 0 comment 'picture is deleted 0:not deleted 1:deleted',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
@@ -85,9 +85,9 @@ CREATE TABLE customer(
     id int unsigned not null auto_increment primary key,
     nickname varchar(16) not null default '' comment 'nickname',
     realname varchar(16) not null default '' comment 'realname',
-    mobile char(11) not null default '' comment 'mobile',
+    mobile varchar(11) not null default '' comment 'mobile',
     email varchar(32) not null default '' comment 'email',
-    avatar_id int unsigned not null default 0 comemnt 'avatar id',
+    avatar_id int unsigned not null default 0 comment 'avatar id',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='customer';
@@ -126,7 +126,7 @@ CREATE TABLE shopping_cart(
     is_delete tinyint(1) unsigned not null default 0 comment 'product deleted,0:not deleted 1:deleted',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-);
+)engine=InnoDB default charset = utf8 comment='shopping cart';
 
 -- customer_order
 CREATE TABLE customer_order(
@@ -157,6 +157,7 @@ CREATE TABLE customer_pay_order(
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='customer pay order';
 
+-- customer_pay_order_log
 CREATE TABLE customer_pay_order_log(
     id int unsigned not null auto_increment primary key,
     customer_id int unsigned not null default 0 comment 'customer id',
@@ -164,7 +165,7 @@ CREATE TABLE customer_pay_order_log(
     callback_message varchar(128) not null default '' comment 'pay channel callback message',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-);
+)engine=InnoDB default charset = utf8 comment='customer pay order log';
 
 -- customer_pay_order_item
 CREATE TABLE customer_pay_order_item(
@@ -173,7 +174,7 @@ CREATE TABLE customer_pay_order_item(
     customer_pay_order_id int unsigned not null default 0 comment 'customer pay order id',
     customer_order_id int unsigned not null default 0 comment 'customer order id',
     pay_price int unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
-    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time'
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='customer pay order item';
 
@@ -182,7 +183,7 @@ CREATE TABLE customer_pay_order_item(
 CREATE TABLE customer_order_delivery_log(
     id int unsigned not null auto_increment primary key,
     customer_id int unsigned not null default 0 comment 'customer id',
-    customer_order_id unsigned not null default 0 comment 'customer_order id',
+    customer_order_id int unsigned not null default 0 comment 'customer_order id',
     address_name varchar(16) not null default '' comment 'delivery station address name',
     lat DECIMAL(10, 8) NOT NULL comment 'latitude',
     lng DECIMAL(11, 8) NOT NULL comment 'longitude',
@@ -191,41 +192,40 @@ CREATE TABLE customer_order_delivery_log(
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
 )engine=InnoDB default charset = utf8 comment='customer order delivery log';
 
-
 -- shop_income
 CREATE TABLE shop_income(
-    id
-    shop_id
-    total_income
-    left_income
-    withdrawn_income
-    updated_at
-    created_at
-)engine=InnoDB default charset = utf8;
+    id int unsigned not null auto_increment primary key,
+    shop_id int unsigned not null default 0 comment 'shop id',
+    total_income int unsigned not null default 0 comment 'total income',
+    left_income int unsigned not null default 0 comment 'left income',
+    withdrawn_income int unsigned not null default 0 comment 'withdrawn income',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+)engine=InnoDB default charset = utf8 comment 'shop income';
 
+-- shop_income_log
 CREATE TABLE shop_income_log(
-    id
-    customer_pay_order_id
-    price 
-    created_at
-);
-
--- bank_card
-CREATE TABLE bank_card(
-    id
-    bank_id
-    card_number
-    account_name
-    account_mobile
-    is_default
-    created_at
-)engine=InnoDB default charset = utf8 'bank card or payment tool';
-
+    id int unsigned not null auto_increment primary key,
+    customer_pay_order_id int unsigned not null default 0 comment 'relate pay order_id',
+    price int unsigned not null default 0 comment 'income price',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+)engine=InnoDB default charset = utf8 comment 'shop income history';
 
 -- bank
 CREATE TABLE bank(
-    id
-    bank_name
-    logo
-    is_delete
-)engine=InnoDB default charset = utf8 comment 'banks or payment platform';
+    id int unsigned not null auto_increment primary key,
+    bank_name varchar(16) not null default '' comment 'bank name',
+    logo varchar(32) not null default '' comment 'bank logo image',
+    is_delete tinyint(1) not null default 0 comment 'is delete,0:not delete 1:deleted'
+)engine=InnoDB default charset = utf8 comment 'banks';
+
+-- bank_card
+CREATE TABLE bank_card(
+    id int unsigned not null auto_increment primary key,
+    bank_id int unsigned not null default 0 comment 'bank id',
+    card_number varchar(19) not null default '' comment 'card number',
+    account_name varchar(16) not null default '' comment 'bank card account name',
+    account_mobile varchar(11) not null default '' comment 'account mobile',
+    is_default tinyint(1) unsigned not null default 0 comment 'is default,card 0:no 1:yes',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+)engine=InnoDB default charset = utf8 comment 'bank card or payment tool';
