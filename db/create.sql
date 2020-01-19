@@ -8,7 +8,7 @@ CREATE TABLE brand(
     slogan varchar(30) not null default '' comment 'brand slogan',
     is_opening tinyint(1) not null default 0 comment 'brand opening status 0:closed 1:opening',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment 'brand';
+)engine=InnoDB default charset = utf8mb4 comment 'brand';
 
 -- shop
 CREATE TABLE shop(
@@ -17,7 +17,7 @@ CREATE TABLE shop(
     name varchar(32) not null default '' comment 'shop name',
     SN varchar(32) not null default '' comment 'shop serial number',
     create_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset=utf8 comment 'shop';
+)engine=InnoDB default charset=utf8mb4 comment 'shop';
 
 -- shop_staff
 CREATE TABLE shop_staff(
@@ -32,7 +32,7 @@ CREATE TABLE shop_staff(
     entry_time DATETIME not null default CURRENT_TIMESTAMP comment 'entry time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     create_at DATETIME not null default CURRENT_TIMESTAMP comment 'entry time'
-)engine=InnoDB default charset=utf8 comment 'shop staff';
+)engine=InnoDB default charset=utf8mb4 comment 'shop staff';
 
 -- product_category
 CREATE TABLE product_category(
@@ -40,7 +40,7 @@ CREATE TABLE product_category(
     name varchar(16) not null default '' comment 'category name',
     is_opening tinyint(1) not null default 0 comment 'category opening status 0:closed 1:opening',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='product category';
+)engine=InnoDB default charset = utf8mb4 comment='product category';
 
 -- product 
 CREATE TABLE product(
@@ -53,7 +53,7 @@ CREATE TABLE product(
     is_opening tinyint(1) not null default 0 comment 'category opening status 0:closed 1:opening',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='product';
+)engine=InnoDB default charset = utf8mb4 comment='product';
 
 -- product_detail
 CREATE TABLE product_detail(
@@ -62,14 +62,14 @@ CREATE TABLE product_detail(
     content text comment 'product detail content',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='product detail';
+)engine=InnoDB default charset = utf8mb4 comment='product detail';
 
 -- product_pictures
 CREATE TABLE product_picture(
     id int unsigned not null auto_increment primary key,
     product_id int unsigned not null default 0 comment 'product id',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='product pictures';
+)engine=InnoDB default charset = utf8mb4 comment='product pictures';
 
 -- pictures
 CREATE TABLE picture(
@@ -78,7 +78,7 @@ CREATE TABLE picture(
     filename varchar(64) not null default '' comment 'picture filename',
     is_delete tinyint(1) unsigned not null default 0 comment 'picture is deleted 0:not deleted 1:deleted',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='pictures';
+)engine=InnoDB default charset = utf8mb4 comment='pictures';
 
 -- customer
 CREATE TABLE customer(
@@ -90,14 +90,14 @@ CREATE TABLE customer(
     avatar_id int unsigned not null default 0 comment 'avatar id',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer';
+)engine=InnoDB default charset = utf8mb4 comment='customer';
 
 -- avatar
 CREATE TABLE avatar(
     id int unsigned not null auto_increment primary key,
     filename varchar(64) not null default '' comment 'avatar filename',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='avatar';
+)engine=InnoDB default charset = utf8mb4 comment='avatar';
 
 -- delivery_address
 CREATE TABLE delivery_address(
@@ -111,7 +111,7 @@ CREATE TABLE delivery_address(
     is_delete tinyint(1) unsigned not null default 0 comment 'delivery address is deleted 0:not deleted 1:deleted',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='delivery address';
+)engine=InnoDB default charset = utf8mb4 comment='delivery address';
 
 -- TODO
 -- CREATE TABLE city;
@@ -126,7 +126,7 @@ CREATE TABLE shopping_cart(
     is_delete tinyint(1) unsigned not null default 0 comment 'product deleted,0:not deleted 1:deleted',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='shopping cart';
+)engine=InnoDB default charset = utf8mb4 comment='shopping cart';
 
 -- customer_order
 CREATE TABLE customer_order(
@@ -142,7 +142,7 @@ CREATE TABLE customer_order(
     is_delete tinyint(1) unsigned not null default 0 comment 'customer order deleted,0:not deleted 1:deleted',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer order';
+)engine=InnoDB default charset = utf8mb4 comment='customer order';
 
 -- customer_pay_order
 CREATE TABLE customer_pay_order(
@@ -155,7 +155,7 @@ CREATE TABLE customer_pay_order(
     paid_at DATETIME not null default CURRENT_TIMESTAMP comment 'successfully paid time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer pay order';
+)engine=InnoDB default charset = utf8mb4 comment='customer pay order';
 
 -- customer_pay_order_log
 CREATE TABLE customer_pay_order_log(
@@ -165,7 +165,7 @@ CREATE TABLE customer_pay_order_log(
     callback_message varchar(128) not null default '' comment 'pay channel callback message',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer pay order log';
+)engine=InnoDB default charset = utf8mb4 comment='customer pay order log';
 
 -- customer_pay_order_item
 CREATE TABLE customer_pay_order_item(
@@ -176,7 +176,7 @@ CREATE TABLE customer_pay_order_item(
     pay_price int unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer pay order item';
+)engine=InnoDB default charset = utf8mb4 comment='customer pay order item';
 
 
 -- customer_order_delivery_log
@@ -190,7 +190,7 @@ CREATE TABLE customer_order_delivery_log(
     message varchar(64) not null default '' comment 'delivery message',
     remark varchar(64) not null default '' comment 'remark',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
-)engine=InnoDB default charset = utf8 comment='customer order delivery log';
+)engine=InnoDB default charset = utf8mb4 comment='customer order delivery log';
 
 -- shop_income
 CREATE TABLE shop_income(
@@ -201,7 +201,7 @@ CREATE TABLE shop_income(
     withdrawn_income int unsigned not null default 0 comment 'withdrawn income',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
-)engine=InnoDB default charset = utf8 comment 'shop income';
+)engine=InnoDB default charset = utf8mb4 comment 'shop income';
 
 -- shop_income_log
 CREATE TABLE shop_income_log(
@@ -209,7 +209,7 @@ CREATE TABLE shop_income_log(
     customer_pay_order_id int unsigned not null default 0 comment 'relate pay order_id',
     price int unsigned not null default 0 comment 'income price',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
-)engine=InnoDB default charset = utf8 comment 'shop income history';
+)engine=InnoDB default charset = utf8mb4 comment 'shop income history';
 
 -- bank
 CREATE TABLE bank(
@@ -217,7 +217,7 @@ CREATE TABLE bank(
     bank_name varchar(16) not null default '' comment 'bank name',
     logo varchar(32) not null default '' comment 'bank logo image',
     is_delete tinyint(1) not null default 0 comment 'is delete,0:not delete 1:deleted'
-)engine=InnoDB default charset = utf8 comment 'banks';
+)engine=InnoDB default charset = utf8mb4 comment 'banks';
 
 -- bank_card
 CREATE TABLE bank_card(
@@ -228,4 +228,4 @@ CREATE TABLE bank_card(
     account_mobile varchar(11) not null default '' comment 'account mobile',
     is_default tinyint(1) unsigned not null default 0 comment 'is default,card 0:no 1:yes',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
-)engine=InnoDB default charset = utf8 comment 'bank card or payment tool';
+)engine=InnoDB default charset = utf8mb4 comment 'bank card or payment tool';
