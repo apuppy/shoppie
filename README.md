@@ -10,6 +10,7 @@ An E-commerce system
 - [ ] log component
 - [ ] cache
 - [ ] deployment
+- [ ] installer and setup
 - [ ] hardware integration (Code Scanner)
 
 #### Business
