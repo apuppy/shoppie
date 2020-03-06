@@ -6,7 +6,7 @@ An E-commerce system
 #### Technical
 
 - [x] http API framework confirm (gin)
-- [ ] mysql database framework confirm
+- [x] mysql database framework confirm (gorm)
 - [ ] log component
 - [ ] cache
 - [ ] deployment
