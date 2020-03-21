@@ -1,7 +1,7 @@
 package main
 
-import "shoppie/user"
+import "shoppie/router"
 
 func main() {
-	user.User()
+	router.Start()
 }
