@@ -1,7 +1,12 @@
 package main
 
-import "shoppie/router"
+import (
+	"shoppie/model"
+)
 
 func main() {
-	router.Start()
+	// DB migration
+	model.AutoMigration()
+
+	// router.Start()
 }
