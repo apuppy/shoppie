@@ -6,7 +6,7 @@ CREATE TABLE brands(
     address varchar(60) not null default '' comment 'brand address',
     logo varchar(60) not null default '' comment 'brand logo',
     slogan varchar(30) not null default '' comment 'brand slogan',
-    is_opening tinyint(1) not null default 0 comment 'brand opening status 0:closed 1:opening',
+    is_opening tinyint(1) unsigned not null default 0 comment 'brand opening status 0:closed 1:opening',
     created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
     deleted_at DATETIME comment 'deleted time'
@@ -16,9 +16,11 @@ CREATE TABLE brands(
 CREATE TABLE shop(
     id int unsigned not null auto_increment primary key,
     brand_id int unsigned not null default 0 comment 'brand id',
-    name varchar(32) not null default '' comment 'shop name',
-    SN varchar(32) not null default '' comment 'shop serial number',
-    create_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    name varchar(30) not null default '' comment 'shop name',
+    sn varchar(30) not null default '' comment 'shop serial number',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset=utf8mb4 comment 'shop';
 
 -- shop_staff
