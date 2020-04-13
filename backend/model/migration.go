@@ -5,6 +5,6 @@ func AutoMigration() {
 	db := Connect()
 	defer db.Close()
 
-	db.Debug().DropTableIfExists(&Brand{}, &Shop{})
-	db.Debug().AutoMigrate(&Brand{}, &Shop{})
+	db.Debug().DropTableIfExists(&Brand{}, &Shop{}, &ShopStaff{}, &ProductCategory{})
+	db.Debug().AutoMigrate(&Brand{}, &Shop{}, &ShopStaff{}, &ProductCategory{})
 }

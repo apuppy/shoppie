@@ -13,7 +13,7 @@ CREATE TABLE brands(
 )engine=InnoDB default charset = utf8mb4 comment 'brands';
 
 -- shop
-CREATE TABLE shop(
+CREATE TABLE shops(
     id int unsigned not null auto_increment primary key,
     brand_id int unsigned not null default 0 comment 'brand id',
     name varchar(30) not null default '' comment 'shop name',
@@ -24,26 +24,28 @@ CREATE TABLE shop(
 )engine=InnoDB default charset=utf8mb4 comment 'shop';
 
 -- shop_staff
-CREATE TABLE shop_staff(
+CREATE TABLE shop_staffs(
     id int unsigned not null auto_increment primary key,
-    realname varchar(16) not null default '' comment 'staff realname',
-    nickname varchar(16) not null default '' comment 'staff nickname',
+    realname varchar(15) not null default '' comment 'staff realname',
+    nickname varchar(15) not null default '' comment 'staff nickname',
     mobile varchar(11) not null default '' comment 'mobile number',
-    avatar varchar(64) not null default '' comment 'staff avatar',
-    motto varchar(32) not null default '' comment 'staff motto',
-    bio varchar(64) not null default '' comment 'personal short bio',
-    email varchar(32) not null default '' comment 'email',
-    entry_time DATETIME not null default CURRENT_TIMESTAMP comment 'entry time',
+    avatar varchar(60) not null default '' comment 'staff avatar',
+    motto varchar(30) not null default '' comment 'staff motto',
+    bio varchar(60) not null default '' comment 'personal short bio',
+    email varchar(30) not null default '' comment 'email',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    create_at DATETIME not null default CURRENT_TIMESTAMP comment 'entry time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset=utf8mb4 comment 'shop staff';
 
 -- product_category
-CREATE TABLE product_category(
+CREATE TABLE product_categories(
     id int unsigned not null auto_increment primary key,
-    name varchar(16) not null default '' comment 'category name',
+    name varchar(20) not null default '' comment 'category name',
     is_opening tinyint(1) not null default 0 comment 'category opening status 0:closed 1:opening',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='product category';
 
 -- product 
