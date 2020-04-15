@@ -1,3 +1,5 @@
+CREATE DATABASE `shoppie` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
 -- brand
 CREATE TABLE brands(
     id int unsigned not null auto_increment primary key,
@@ -49,41 +51,48 @@ CREATE TABLE product_categories(
 )engine=InnoDB default charset = utf8mb4 comment='product category';
 
 -- product 
-CREATE TABLE product(
+CREATE TABLE products(
     id int unsigned not null auto_increment primary key,
-    name varchar(32) not null default '' comment 'product name',
+    name varchar(30) not null default '' comment 'product name',
     cost_price int unsigned not null default 0 comment 'cost price,unit is cent/分',
     selling_price int unsigned not null default 0 comment 'selling price, unit is cent/分',
     left_count int unsigned not null default 0 comment 'product left count',
     sold_count int unsigned not null default 0 comment 'product sold count',
     is_opening tinyint(1) not null default 0 comment 'category opening status 0:closed 1:opening',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='product';
 
 -- product_detail
-CREATE TABLE product_detail(
+CREATE TABLE product_details(
     id int unsigned not null auto_increment primary key,
     product_id int unsigned not null default 0 comment 'product id',
     content text comment 'product detail content',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='product detail';
 
 -- product_pictures
-CREATE TABLE product_picture(
+CREATE TABLE product_pictures(
     id int unsigned not null auto_increment primary key,
     product_id int unsigned not null default 0 comment 'product id',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    picture_id int unsigned not null default 0 comment 'picture id',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='product pictures';
 
 -- pictures
-CREATE TABLE picture(
+CREATE TABLE pictures(
     id int unsigned not null auto_increment primary key,
     pic_type tinyint(1) unsigned not null default 0 comment 'picture type,0:normal/product picture 1:logo 2:shop picture',
-    filename varchar(64) not null default '' comment 'picture filename',
+    filename varchar(60) not null default '' comment 'picture filename',
     is_delete tinyint(1) unsigned not null default 0 comment 'picture is deleted 0:not deleted 1:deleted',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='pictures';
 
 -- customer
