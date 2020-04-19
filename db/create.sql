@@ -1,6 +1,6 @@
 CREATE DATABASE `shoppie` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
--- brand
+-- brands
 CREATE TABLE brands(
     id int unsigned not null auto_increment primary key,
     name varchar(30) not null default '' comment 'brand name',
@@ -14,7 +14,7 @@ CREATE TABLE brands(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment 'brands';
 
--- shop
+-- shops
 CREATE TABLE shops(
     id int unsigned not null auto_increment primary key,
     brand_id int unsigned not null default 0 comment 'brand id',
@@ -25,7 +25,7 @@ CREATE TABLE shops(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset=utf8mb4 comment 'shop';
 
--- shop_staff
+-- shop_staffs
 CREATE TABLE shop_staffs(
     id int unsigned not null auto_increment primary key,
     realname varchar(15) not null default '' comment 'staff realname',
@@ -40,7 +40,7 @@ CREATE TABLE shop_staffs(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset=utf8mb4 comment 'shop staff';
 
--- product_category
+-- product_categories
 CREATE TABLE product_categories(
     id int unsigned not null auto_increment primary key,
     name varchar(20) not null default '' comment 'category name',
@@ -64,7 +64,7 @@ CREATE TABLE products(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='product';
 
--- product_detail
+-- product_details
 CREATE TABLE product_details(
     id int unsigned not null auto_increment primary key,
     product_id int unsigned not null default 0 comment 'product id',
@@ -95,37 +95,41 @@ CREATE TABLE pictures(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='pictures';
 
--- customer
-CREATE TABLE customer(
+-- customers
+CREATE TABLE customers(
     id int unsigned not null auto_increment primary key,
-    nickname varchar(16) not null default '' comment 'nickname',
-    realname varchar(16) not null default '' comment 'realname',
-    mobile varchar(11) not null default '' comment 'mobile',
-    email varchar(32) not null default '' comment 'email',
+    nickname varchar(20) not null default '' comment 'nickname',
+    realname varchar(20) not null default '' comment 'realname',
+    mobile char(11) not null default '' comment 'mobile',
+    email varchar(30) not null default '' comment 'email',
     avatar_id int unsigned not null default 0 comment 'avatar id',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='customer';
 
--- avatar
-CREATE TABLE avatar(
+-- avatars
+CREATE TABLE avatars(
     id int unsigned not null auto_increment primary key,
-    filename varchar(64) not null default '' comment 'avatar filename',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    filename varchar(60) not null default '' comment 'avatar filename',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='avatar';
 
--- delivery_address
-CREATE TABLE delivery_address(
+-- delivery_addresses
+CREATE TABLE delivery_addresses(
     id int unsigned not null auto_increment primary key,
     address_id int unsigned not null default 0 comment 'address id',
     province_id int unsigned not null default 0 comment 'province id',
     city_id int unsigned not null default 0 comment 'city id',
     district_id int unsigned not null default 0 comment 'district id',
-    detailed_address varchar(64) not null default '' comment 'detailed address',
+    detailed_address varchar(60) not null default '' comment 'detailed address',
     is_default tinyint(1) unsigned not null default 0 comment 'default delivery address 0:not default 1:default',
     is_delete tinyint(1) unsigned not null default 0 comment 'delivery address is deleted 0:not deleted 1:deleted',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='delivery address';
 
 -- TODO
