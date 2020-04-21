@@ -136,19 +136,20 @@ CREATE TABLE delivery_addresses(
 -- CREATE TABLE city;
 
 -- shopping cart
-CREATE TABLE shopping_cart(
+CREATE TABLE shopping_carts(
     id int unsigned not null auto_increment primary key,
     customer_id int unsigned not null default 0 comment 'customer id',
     product_id int unsigned not null default 0 comment 'product id',
     unit_price int unsigned not null default 0 comment 'unit price,unit is cent/分',
     purchase_count int unsigned not null default 0 comment 'purchase count',
     is_delete tinyint(1) unsigned not null default 0 comment 'product deleted,0:not deleted 1:deleted',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='shopping cart';
 
 -- customer_order
-CREATE TABLE customer_order(
+CREATE TABLE customer_orders(
     id int unsigned not null auto_increment primary key,
     customer_id int unsigned not null default 0 comment 'customer id',
     product_id int unsigned not null default 0 comment 'product id',
@@ -159,8 +160,9 @@ CREATE TABLE customer_order(
     delivery_progress tinyint(1) unsigned not null default 0 comment 'delivery progress, 0:none 1:stocking 2:deliverying 3:received',
     pay_price int unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
     is_delete tinyint(1) unsigned not null default 0 comment 'customer order deleted,0:not deleted 1:deleted',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='customer order';
 
 -- customer_pay_order
