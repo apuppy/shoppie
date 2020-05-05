@@ -190,29 +190,32 @@ CREATE TABLE customer_pay_order_logs(
     deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='customer pay order log';
 
--- customer_pay_order_item
-CREATE TABLE customer_pay_order_item(
+-- customer_pay_order_items
+CREATE TABLE customer_pay_order_items(
     id int(11) unsigned not null auto_increment primary key,
     customer_id int(11) unsigned not null default 0 comment 'customer id',
     customer_pay_order_id int(11) unsigned not null default 0 comment 'customer pay order id',
     customer_order_id int(11) unsigned not null default 0 comment 'customer order id',
     pay_price int(11) unsigned not null default 0 comment 'should pay actual price,unit is cent/分',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='customer pay order item';
 
 
--- customer_order_delivery_log
-CREATE TABLE customer_order_delivery_log(
+-- customer_order_delivery_logs
+CREATE TABLE customer_order_delivery_logs(
     id int(11) unsigned not null auto_increment primary key,
     customer_id int(11) unsigned not null default 0 comment 'customer id',
     customer_order_id int(11) unsigned not null default 0 comment 'customer_order id',
-    address_name varchar(16) not null default '' comment 'delivery station address name',
+    address_name varchar(50) not null default '' comment 'delivery station address name',
     lat DECIMAL(10, 8) NOT NULL comment 'latitude',
     lng DECIMAL(11, 8) NOT NULL comment 'longitude',
-    message varchar(64) not null default '' comment 'delivery message',
-    remark varchar(64) not null default '' comment 'remark',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'added time'
+    message text comment 'delivery message',
+    remark text comment 'remark',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment='customer order delivery log';
 
 -- shop_income
