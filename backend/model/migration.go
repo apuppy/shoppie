@@ -7,8 +7,8 @@ func AutoMigration() {
 
 	db.Debug().DropTableIfExists(&Brand{}, &Shop{}, &ShopStaff{}, &ProductCategory{}, &Product{}, &ProductDetail{},
 		&ProductPicture{}, &Picture{}, &Customer{}, &Avatar{}, &DeliveryAddress{}, &ShoppingCart{}, &CustomerOrder{},
-		&CustomerPayOrder{}, &CustomerPayOrderLogs{})
+		&CustomerPayOrder{}, &CustomerPayOrderLog{}, &CustomerPayOrderItem{}, &CustomerOrderDeliveryLog{})
 	db.Debug().AutoMigrate(&Brand{}, &Shop{}, &ShopStaff{}, &ProductCategory{}, &Product{}, &ProductDetail{},
 		&ProductPicture{}, &Picture{}, &Customer{}, &Avatar{}, &DeliveryAddress{}, &ShoppingCart{}, &CustomerOrder{},
-		&CustomerPayOrder{}, &CustomerPayOrderLogs{})
+		&CustomerPayOrder{}, &CustomerPayOrderLog{}, &CustomerPayOrderItem{}, &CustomerOrderDeliveryLog{})
 }
