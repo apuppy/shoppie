@@ -219,22 +219,25 @@ CREATE TABLE customer_order_delivery_logs(
 )engine=InnoDB default charset = utf8mb4 comment='customer order delivery log';
 
 -- shop_income
-CREATE TABLE shop_income(
+CREATE TABLE shop_incomes(
     id int(11) unsigned not null auto_increment primary key,
     shop_id int(11) unsigned not null default 0 comment 'shop id',
     total_income int(11) unsigned not null default 0 comment 'total income',
     left_income int(11) unsigned not null default 0 comment 'left income',
     withdrawn_income int(11) unsigned not null default 0 comment 'withdrawn income',
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
     updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment 'shop income';
 
 -- shop_income_log
-CREATE TABLE shop_income_log(
+CREATE TABLE shop_income_logs(
     id int(11) unsigned not null auto_increment primary key,
     customer_pay_order_id int(11) unsigned not null default 0 comment 'relate pay order_id',
     price int(11) unsigned not null default 0 comment 'income price',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment 'shop income history';
 
 -- bank
