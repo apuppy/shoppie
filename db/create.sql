@@ -241,20 +241,25 @@ CREATE TABLE shop_income_logs(
 )engine=InnoDB default charset = utf8mb4 comment 'shop income history';
 
 -- bank
-CREATE TABLE bank(
+CREATE TABLE banks(
     id int(11) unsigned not null auto_increment primary key,
-    bank_name varchar(16) not null default '' comment 'bank name',
-    logo varchar(32) not null default '' comment 'bank logo image',
+    bank_name varchar(20) not null default '' comment 'bank name',
+    logo varchar(60) not null default '' comment 'bank logo image',
     is_delete tinyint(1) not null default 0 comment 'is delete,0:not delete 1:deleted'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment 'banks';
 
 -- bank_card
-CREATE TABLE bank_card(
+CREATE TABLE bank_cards(
     id int(11) unsigned not null auto_increment primary key,
     bank_id int(11) unsigned not null default 0 comment 'bank id',
     card_number varchar(19) not null default '' comment 'card number',
-    account_name varchar(16) not null default '' comment 'bank card account name',
-    account_mobile varchar(11) not null default '' comment 'account mobile',
+    account_name varchar(20) not null default '' comment 'bank card account name',
+    account_mobile char(11) not null default '' comment 'account mobile',
     is_default tinyint(1) unsigned not null default 0 comment 'is default,card 0:no 1:yes',
-    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time'
+    created_at DATETIME not null default CURRENT_TIMESTAMP comment 'created time',
+    updated_at DATETIME not null default CURRENT_TIMESTAMP comment 'updated time',
+    deleted_at DATETIME comment 'deleted time'
 )engine=InnoDB default charset = utf8mb4 comment 'bank card or payment tool';
