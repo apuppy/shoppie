@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"shoppie/model"
 	"shoppie/util"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -32,47 +33,38 @@ func GetStaffs(c *gin.Context) {
 }
 
 //GetStaff get staff by id
-/*
-func GetStaff(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseUint(vars["id"], 10, 64)
+func GetStaff(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
 	staff := model.GetByID(model.SHOPSTAFF, id)
-	util.ToJSON(w, staff, http.StatusOK)
+	util.JSON(c, gin.H{"data": staff})
 }
-*/
 
 //DeleteStaff delete staff by id
-/*
-func DeleteStaff(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseUint(vars["id"], 10, 64)
+func DeleteStaff(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
 	rows, err := model.DeleteByID(model.SHOPSTAFF, id)
 	if err != nil {
-		util.ToJSON(w, err.Error(), http.StatusUnprocessableEntity)
+		util.JSON(c, gin.H{"message": err.Error()})
 		return
 	}
-	util.ToJSON(w, rows, http.StatusOK)
+	util.JSON(c, gin.H{"message": "OK", "rows": rows})
 }
-*/
 
 //PutStaff update staff
-/*
-func PutStaff(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseUint(vars["id"], 10, 64)
-	body := util.BodyParser(r)
+func PutStaff(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	body := util.BodyParamsParser(c)
 	var staff model.ShopStaff
 	err := json.Unmarshal(body, &staff)
 	if err != nil {
-		util.ToJSON(w, err.Error(), http.StatusUnprocessableEntity)
+		util.JSON(c, gin.H{"message": err.Error()})
 		return
 	}
 	staff.ID = uint32(id)
 	rows, err := model.UpdateShopStaff(staff)
 	if err != nil {
-		util.ToJSON(w, err.Error(), http.StatusUnprocessableEntity)
+		util.JSON(c, gin.H{"message": err.Error()})
 		return
 	}
-	util.ToJSON(w, rows, http.StatusOK)
+	util.JSON(c, gin.H{"message": "success", "rows": rows})
 }
-*/
