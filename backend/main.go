@@ -1,13 +1,15 @@
 package main
 
 import (
+	"shoppie/api"
 	"shoppie/model"
-	"shoppie/router"
 )
 
 func main() {
 	// DB migration
 	model.AutoMigration()
 
-	router.Start()
+	// start http server
+	bindAddr := ":8080"
+	api.Listen(bindAddr)
 }

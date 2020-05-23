@@ -12,6 +12,7 @@ An E-commerce system
 - [ ] deployment
 - [ ] installer and setup
 - [ ] hardware integration (Code Scanner)
+- [ ] permission：menu，data(department，person，customize)，API permission
 
 #### Business
 
