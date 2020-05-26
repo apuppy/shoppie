@@ -30,6 +30,7 @@ CREATE TABLE shop_staffs(
     id int(11) unsigned not null auto_increment primary key,
     realname varchar(15) not null default '' comment 'staff realname',
     nickname varchar(15) not null default '' comment 'staff nickname',
+    password_hash varchar(72) not null default '' comment 'staff password hash',
     mobile varchar(11) not null default '' comment 'mobile number',
     avatar varchar(60) not null default '' comment 'staff avatar',
     motto varchar(30) not null default '' comment 'staff motto',
