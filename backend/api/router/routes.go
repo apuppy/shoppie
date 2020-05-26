@@ -19,6 +19,8 @@ func HandlerRouter(bindAddr string) {
 	r.GET("/staff/:id", controller.GetStaff)
 	r.PUT("/staff/:id", controller.PutStaff)
 	r.DELETE("/staff/:id", controller.DeleteStaff)
+	r.PUT("/staff-auth/:id", controller.SetPasswd)
+	r.POST("/staff-auth", controller.VerifyPasswd)
 
 	r.Run(bindAddr)
 }
