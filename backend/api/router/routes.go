@@ -3,6 +3,7 @@ package router
 import (
 	"shoppie/api/controller"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,5 +23,6 @@ func HandlerRouter(bindAddr string) {
 	r.PUT("/staff-auth/:id", controller.SetPasswd)
 	r.POST("/staff-auth", controller.VerifyPasswd)
 
+	r.Use(cors.Default())
 	r.Run(bindAddr)
 }

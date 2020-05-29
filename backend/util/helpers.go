@@ -34,6 +34,20 @@ func JSON(c *gin.Context, response gin.H) {
 	c.JSON(http.StatusOK, response)
 }
 
+// Success HTTP api success response
+func Success(c *gin.Context, data interface{}) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	response := gin.H{"code": 20000, "message": "success", "data": data}
+	c.JSON(http.StatusOK, response)
+}
+
+// Error HTTP api error response
+func Error(c *gin.Context, message string) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	response := gin.H{"code": 40000, "message": message, "data": nil}
+	c.JSON(http.StatusOK, response)
+}
+
 // CheckError catch error and return
 func CheckError(err error) {
 	if err != nil {

@@ -104,7 +104,7 @@ type LoginInfo struct {
 func VerifyPasswd(c *gin.Context) {
 	var loginInfo LoginInfo
 	if err := c.ShouldBindJSON(&loginInfo); err != nil {
-		util.JSON(c, gin.H{"message": err.Error()})
+		util.Error(c, err.Error())
 		return
 	}
 	loginName := loginInfo.LoginName
@@ -115,9 +115,8 @@ func VerifyPasswd(c *gin.Context) {
 	// verify password with password hash stored in DB
 	err := util.VerifyPassword(passwordHash, password)
 	if err != nil {
-		util.JSON(c, gin.H{"message": err.Error()})
+		util.Error(c, err.Error())
 		return
 	}
-
-	util.JSON(c, gin.H{"message": "success", "verified": "passed"})
+	util.Success(c, map[string]string{"token": "d61ecf7a-a15b-11ea-9dd2-471ad521fc22"})
 }
