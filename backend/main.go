@@ -1,6 +1,10 @@
 package main
 
-import "shoppie/api"
+import (
+	"shoppie/api"
+	"shoppie/config"
+	"strconv"
+)
 
 func main() {
 	// DB migration
@@ -9,7 +13,16 @@ func main() {
 	// send email
 	// util.SendMail()
 
+	// read config
+	config := config.Read()
+
+	// redis cache
+	// err := cache.Ping()
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
 	// start http server
-	bindAddr := ":8080"
+	bindAddr := ":" + strconv.Itoa(config.Server.Port)
 	api.Listen(bindAddr)
 }
