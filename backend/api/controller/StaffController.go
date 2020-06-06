@@ -96,7 +96,7 @@ func SetPasswd(c *gin.Context) {
 
 // LoginInfo staff login info login_name and password
 type LoginInfo struct {
-	LoginName string `form:"" json:"login_name" xml:"login_name" binding:"required"`
+	LoginName string `form:"" json:"username" xml:"login_name" binding:"required"`
 	Password  string `form:"password" json:"password" xml:"password" binding:"required"`
 }
 
@@ -118,5 +118,25 @@ func VerifyPasswd(c *gin.Context) {
 		util.Error(c, err.Error())
 		return
 	}
-	util.Success(c, map[string]string{"token": "d61ecf7a-a15b-11ea-9dd2-471ad521fc22"})
+	data := map[string]string{"token": "d61ecf7a-a15b-11ea-9dd2-471ad521fc22"}
+	util.Success(c, data)
+}
+
+// Info staff info
+func Info(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Headers", "x-token")
+	data := map[string]interface{}{
+		"name":         "panda",
+		"introduction": "hello",
+		"avatar":       "https://source.unsplash.com/random",
+		"roles":        []string{"admin", "editor"},
+	}
+	util.Success(c, data)
+}
+
+// Logout staff logout
+func Logout(c *gin.Context) {
+	data := map[string]string{"result": "success"}
+	util.Success(c, data)
 }

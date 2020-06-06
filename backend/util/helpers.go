@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,14 +37,14 @@ func JSON(c *gin.Context, response gin.H) {
 
 // Success HTTP api success response
 func Success(c *gin.Context, data interface{}) {
-	c.Header("Access-Control-Allow-Origin", "*")
+	GinCorsHeaders(c)
 	response := gin.H{"code": 20000, "message": "success", "data": data}
 	c.JSON(http.StatusOK, response)
 }
 
 // Error HTTP api error response
 func Error(c *gin.Context, message string) {
-	c.Header("Access-Control-Allow-Origin", "*")
+	GinCorsHeaders(c)
 	response := gin.H{"code": 40000, "message": message, "data": nil}
 	c.JSON(http.StatusOK, response)
 }
@@ -53,4 +54,18 @@ func CheckError(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// GinCorsHeaders add HTTP CORS headers
+func GinCorsHeaders(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Headers", "x-token")
+}
+
+// GinCors gin CORS settings
+func GinCors() gin.HandlerFunc {
+	corsConf := cors.DefaultConfig()
+	corsConf.AllowAllOrigins = true
+	corsConf.AddAllowHeaders("x-token")
+	return cors.New(corsConf)
 }
