@@ -24,6 +24,8 @@ func HandlerRouter(bindAddr string) {
 	r.POST("/staff-login", controller.VerifyPasswd)
 	r.GET("/staff-info", controller.Info)
 	r.POST("/staff-logout", controller.Logout)
+	// demo route
+	r.GET("/demo/index", controller.Index)
 
 	r.Use(util.GinCors())
 
