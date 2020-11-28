@@ -13,9 +13,6 @@ func main() {
 	// send email
 	// util.SendMail()
 
-	// read config
-	config := config.Read()
-
 	// redis cache
 	// err := cache.Ping()
 	// if err != nil {
@@ -23,6 +20,6 @@ func main() {
 	// }
 
 	// start http server
-	bindAddr := ":" + strconv.Itoa(config.Server.Port)
+	bindAddr := ":" + strconv.Itoa(config.Conf.Server.Port)
 	api.Listen(bindAddr)
 }

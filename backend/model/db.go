@@ -3,18 +3,19 @@ package model
 import (
 	"fmt"
 	"log"
+	"shoppie/config"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // mysql driver
 )
 
 // mysql connection info
-const (
-	USER   = "root"
-	PASS   = "123456"
-	HOST   = "127.0.0.1"
-	PORT   = 3306
-	DBNAME = "shoppie"
+var (
+	USER   = config.Conf.Database.User
+	PASS   = config.Conf.Database.Password
+	HOST   = config.Conf.Database.Host
+	PORT   = config.Conf.Database.Port
+	DBNAME = config.Conf.Database.DB
 )
 
 // Connect connect to mysql database

@@ -1,7 +1,7 @@
 package config
 
-// Settings exported
-type Settings struct {
+// Configurations exported
+type Configurations struct {
 	Server   Server
 	Database Database
 	Redis    Redis
@@ -22,7 +22,7 @@ type Database struct {
 	Charset  string
 }
 
-// Redis redis configration
+// Redis redis configurations
 type Redis struct {
 	Host string
 	Port int
